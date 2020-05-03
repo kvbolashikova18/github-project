@@ -1,4 +1,5 @@
 
+
 #include "pch.h"
 #include <iostream>
 #include <string>
@@ -435,7 +436,7 @@ void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals,
 	showBySpecies(adoptedAnimals, adoptedAnimalCount, speciesUser,selected_array);
 }
 
-void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)
+void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)//displays the animal which corresponds to the entered by the user ID number
 {
 	string gender, condition;
 
@@ -454,7 +455,7 @@ void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)
 	cout << endl;
 }
 
-void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedanimalCount)
+void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedanimalCount)//serves for selecting the array, entering the animal's ID number and displaying the animal that corresponds to the entered ID
 {
 	int IdUser;
 	int selected_array = selectArray();
@@ -467,7 +468,7 @@ void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int 
 		showById(adoptedAnimals, adoptedanimalCount, IdUser,selected_array);
 }
 
-void showIllAnimals(ANIMAL *animals, int animalCount)
+void showIllAnimals(ANIMAL *animals, int animalCount)//displays the animals which have a field "condition" that equals to "BAD"
 {
 	string gender, condition;
 
@@ -484,7 +485,7 @@ void showIllAnimals(ANIMAL *animals, int animalCount)
 	cout << endl;
 }
 
-void mainMenu(ANIMAL *animals,int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount, int maxSize)
+void mainMenu(ANIMAL *animals,int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount, int maxSize)//serves for choosing one of the main functions
 {
 	int choice;
 	cout << endl;
@@ -583,4 +584,5 @@ int main()
 		mainMenu(animals, animalCount, adoptedAnimals, adoptedAnimalCount, maxSize);
 	} while (continueMenu == true);
 }
+
 
