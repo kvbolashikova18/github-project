@@ -44,7 +44,7 @@ void conditionToEnum(ANIMAL *animals, string condition, int i)//converts the ani
 		animals[i].condition = condition::BAD;
 }
 
-void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)
+void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)//servers for entering one animal's data
 {
 	cout << "Fill in the information about the animal" << endl;
 	cout << endl;
@@ -63,14 +63,14 @@ void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)
 	cin >> newAnimal.dateOfArrival.day >> newAnimal.dateOfArrival.month >> newAnimal.dateOfArrival.year;
 }
 
-void addAnimal(ANIMAL *animals, int &animalCount, ANIMAL newAnimal)
+void addAnimal(ANIMAL *animals, int &animalCount, ANIMAL newAnimal)//adds an animal to the end of an array
 {
 	animals[animalCount] = newAnimal;
 	animals[animalCount].id = animalCount+1;
 	animalCount++;
 }
 
-void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
+void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers for entering an animal's data and adding it to the array "animals"
 {
 	if (animalCount < maxSize)
 	{
@@ -89,7 +89,7 @@ void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
 		cout << "There's not enough space in the shelter!" << endl;
 }
 
-void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)
+void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)//inserts animal to a specific position in an array
 {
 	for (int i = animalCount; i > index; i--)
 	{
@@ -100,7 +100,7 @@ void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)
 	animalCount++;
 }
 
-void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
+void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers for entering the animal's data and interesting it to a specific position in the array
 {
 	if (animalCount < maxSize)
 	{
@@ -124,7 +124,7 @@ void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
 		cout << "There's not enough space in the shelter!" << endl;
 }
 
-int getIndexById(ANIMAL* animals, int animalCount,int idUser)
+int getIndexById(ANIMAL* animals, int animalCount,int idUser)//gets the index of the animal that corresponds to the entered by one user ID number
 {
 	int index;
 	for (int i = 0; i < animalCount; i++)
@@ -136,7 +136,7 @@ int getIndexById(ANIMAL* animals, int animalCount,int idUser)
 	return index;
 }
 
-void removeAnimal(ANIMAL* animals, int& animalCount,int index)
+void removeAnimal(ANIMAL* animals, int& animalCount,int index)//removes an animal from an array
 {
 	for (int i = index; i < (animalCount - 1); i++)
 	{
@@ -145,7 +145,7 @@ void removeAnimal(ANIMAL* animals, int& animalCount,int index)
 	animalCount--;
 }
 
-void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
+void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)//servers for entering ID number of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
 {
 	int id,index;
 	cout << "Enter animal's ID: ";
@@ -167,7 +167,7 @@ void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnim
 	}
 }
 
-void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedAnimals, int &adoptedAnimalCount)
+void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedAnimals, int &adoptedAnimalCount)//servers for entering index of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
 {
 	int index;
 	cout << "Enter animal's position (index): ";
@@ -186,7 +186,7 @@ void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedA
 	}
 }
 
-void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
+void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)//servers for choosing to enter ID number or index and calls either function "removeAnimalByIdMenu" or "removeAnimalByIndexMenu"
 {
 	int choice;
 	cout << "Do you want to select an animal by: \n" << endl;
@@ -210,7 +210,7 @@ void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals,
 	cout << "\nNote: once you remove an animal from the list of animals in the shelter, it will automatically be added to the list of adopted animals and its ID number will change \n" << endl;
 }
 
-void editName(ANIMAL *animals,int index)
+void editName(ANIMAL *animals,int index)//edits the information in field "name" in the structure "ANIMAL", according  to what one user has entered
 {
 	string newName;
 	cout << "Enter a new name: ";
@@ -218,7 +218,7 @@ void editName(ANIMAL *animals,int index)
 	animals[index].name = newName;
 }
 
-void editSpecies(ANIMAL* animals, int index)
+void editSpecies(ANIMAL* animals, int index)//edits the information in field "species" in the structure "ANIMAL", according  to what one user has entered
 {
 	string newSpecies;
 	cout << "Enter new species: ";
@@ -226,7 +226,7 @@ void editSpecies(ANIMAL* animals, int index)
 	animals[index].species = newSpecies;
 }
 
-void editAge(ANIMAL* animals, int index)
+void editAge(ANIMAL* animals, int index)//edits the information in field "age" in the structure "ANIMAL", according  to what one user has entered
 {
 	int newAge;
 	cout << "Enter new age: ";
@@ -234,7 +234,7 @@ void editAge(ANIMAL* animals, int index)
 	animals[index].age = newAge;
 }
 
-void editGender(ANIMAL* animals, int index)
+void editGender(ANIMAL* animals, int index)//edits the information in field "gender" in the structure "ANIMAL", according  to what one user has entered
 {
 	string newGender;
 	cout << "Enter new gender (male/female): ";
@@ -242,7 +242,7 @@ void editGender(ANIMAL* animals, int index)
 	genderToEnum(animals, newGender, index);
 }
 
-void editCondition(ANIMAL* animals, int index)
+void editCondition(ANIMAL* animals, int index)//edits the information in field "condition" in the structure "ANIMAL", according  to what one user has entered
 {
 	string newCondition;
 	cout << "Enter new condition (good/bad): ";
@@ -250,7 +250,7 @@ void editCondition(ANIMAL* animals, int index)
 	conditionToEnum(animals, newCondition, index);
 }
 
-void editDateOfArrival(ANIMAL* animals, int index)
+void editDateOfArrival(ANIMAL* animals, int index)//edits the information in field "dateOfArrival" in the structure "ANIMAL", according  to what one user has entered
 {
 	int newDay, newMonth, newYear;
 	cout << "Enter new date of arrival (D/M/Y): ";
@@ -260,7 +260,7 @@ void editDateOfArrival(ANIMAL* animals, int index)
 	animals[index].dateOfArrival.year = newYear;
 }
 
-void selectEdit(ANIMAL *animals,int index)
+void selectEdit(ANIMAL *animals,int index)//servers for choosing what to edit and calling one appropirate function
 {
 	int choice;
 	cout << "\n What do you want to edit? \n";
