@@ -1,13 +1,15 @@
 #pragma once
 #include "pch.h"
-#include <iostream>
 #include <string>
 using namespace std;
 
+//enum for the animal's gender
 enum gender { MALE, FEMALE };
 
+//enum for the animal's condition
 enum condition { GOOD, BAD };
 
+//structure for the date
 struct DATE
 {
 	int day;
@@ -15,6 +17,7 @@ struct DATE
 	int year;
 };
 
+//structure with information about the animal
 struct ANIMAL
 {
 	string name;

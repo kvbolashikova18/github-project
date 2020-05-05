@@ -2,7 +2,7 @@
 #include "pch.h"
 #include <iostream>
 #include <string>
-#include "structures.h"
+#include "structuresAndEnums.h"
 using namespace std;
 
 string genderToString(ANIMAL*, int);

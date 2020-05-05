@@ -1,12 +1,18 @@
 #include "pch.h"
 #include <iostream>
 #include <string>
-#include "structures.h"
+#include "structuresAndEnums.h"
 #include "data.h"
 using namespace std;
 
+
+
+
+/* -------------------- FUNCTIONS THAT PROCESS DATA -------------------- */
+
+
 //converts the animal's gender from enum to string
-string genderToString(ANIMAL *animals,int i)
+string genderToString(ANIMAL *animals, int i)
 {
 	string gender;
 	if (animals[i].gender == 0)
@@ -46,93 +52,8 @@ void conditionToEnum(ANIMAL *animals, string condition, int i)
 		animals[i].condition = condition::BAD;
 }
 
-//servers for entering one animal's data
-void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)
-{
-	cout << "Fill in the information about the animal" << endl;
-	cout << endl;
-	cout << "Name: ";
-	cin >> newAnimal.name;
-	cout << "Species (with small letters): ";
-	cin >> newAnimal.species;
-	cin.ignore();
-	cout << "Age (in human years): ";
-	cin >> newAnimal.age;
-	cout << "Gender (male/female): ";
-	cin >> gender;
-	cout << "Condition (good/bad): ";
-	cin >> condition;
-	cout << "Date of arrival (D/M/Y): ";
-	cin >> newAnimal.dateOfArrival.day >> newAnimal.dateOfArrival.month >> newAnimal.dateOfArrival.year;
-}
-
-//adds an animal to the end of an array
-void addAnimal(ANIMAL *animals, int &animalCount, ANIMAL newAnimal)
-{
-	animals[animalCount] = newAnimal;
-	animals[animalCount].id = animalCount+1;
-	animalCount++;
-}
-
-//servers for entering an animal's data and adding it to the array "animals"
-void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
-{
-	if (animalCount < maxSize)
-	{
-		string gender, condition;
-
-		ANIMAL newAnimal;
-
-		fillInAnimal(newAnimal, gender, condition);
-
-		addAnimal(animals, animalCount, newAnimal);
-
-		genderToEnum(animals, gender, (animalCount - 1));
-		conditionToEnum(animals, condition, (animalCount - 1));
-	}
-	else
-		cout << "There's not enough space in the shelter!" << endl;
-}
-
-//inserts animal to a specific position in an array
-void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)
-{
-	for (int i = animalCount; i > index; i--)
-	{
-		animals[i] = animals[i - 1];
-	}
-	animals[index] = newAnimal;
-	animals[index].id = animalCount + 1;
-	animalCount++;
-}
-
-//servers for entering the animal's data and interesting it to a specific position in the array
-void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
-{
-	if (animalCount < maxSize)
-	{
-		int index;
-		string gender, condition;
-
-		ANIMAL newAnimal;
-
-		fillInAnimal(newAnimal, gender, condition);
-
-		cout << endl;
-		cout << "Enter the position (index) where you want to place the animal: ";
-		cin >> index;
-
-		insertAnimal(animals, animalCount, newAnimal, index);
-
-		genderToEnum(animals, gender, index);
-		conditionToEnum(animals, condition, index);
-	}
-	else
-		cout << "There's not enough space in the shelter!" << endl;
-}
-
 //gets the index of the animal that corresponds to the entered by one user ID number
-int getIndexById(ANIMAL* animals, int animalCount,int idUser)
+int getIndexById(ANIMAL* animals, int animalCount, int idUser)
 {
 	int index;
 	for (int i = 0; i < animalCount; i++)
@@ -144,8 +65,28 @@ int getIndexById(ANIMAL* animals, int animalCount,int idUser)
 	return index;
 }
 
+//adds an animal to the end of an array
+void addAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal)
+{
+	animals[animalCount] = newAnimal;
+	animals[animalCount].id = animalCount + 1;
+	animalCount++;
+}
+
+//inserts animal to a specific position in an array
+void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal, int index)
+{
+	for (int i = animalCount; i > index; i--)
+	{
+		animals[i] = animals[i - 1];
+	}
+	animals[index] = newAnimal;
+	animals[index].id = animalCount + 1;
+	animalCount++;
+}
+
 //removes an animal from an array
-void removeAnimal(ANIMAL* animals, int& animalCount,int index)
+void removeAnimal(ANIMAL* animals, int& animalCount, int index)
 {
 	for (int i = index; i < (animalCount - 1); i++)
 	{
@@ -154,76 +95,8 @@ void removeAnimal(ANIMAL* animals, int& animalCount,int index)
 	animalCount--;
 }
 
-//servers for entering ID number of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
-void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
-{
-	int id,index;
-	cout << "Enter animal's ID: ";
-	cin >> id;
-
-	index=getIndexById(animals,animalCount,id);
-
-	if (animals[index].condition == condition::BAD)
-	{
-		cout << "\nAn animal that needs medical treatment can't be adopted!";
-		cout << endl;
-	}
-	else {
-		cout << "\nEnter date of adoption (D/M/Y): ";
-		cin >> animals[index].dateOfAdoption.day >> animals[index].dateOfAdoption.month >> animals[index].dateOfAdoption.year;
-
-		addAnimal(adoptedAnimals, adoptedAnimalCount, animals[index]);
-		removeAnimal(animals, animalCount, index);
-	}
-}
-
-//servers for entering index of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
-void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedAnimals, int &adoptedAnimalCount)
-{
-	int index;
-	cout << "Enter animal's position (index): ";
-	cin >> index;
-
-	if (animals[index].condition == condition::BAD) {
-		cout << "\nAn animal that needs medical treatment can't be adopted!";
-		cout << endl;
-	}
-	else {
-		cout << "\nEnter date of adoption (D/M/Y): ";
-		cin >> animals[index].dateOfAdoption.day >> animals[index].dateOfAdoption.month >> animals[index].dateOfAdoption.year;
-
-		addAnimal(adoptedAnimals, adoptedAnimalCount, animals[index]);
-		removeAnimal(animals, animalCount, index);
-	}
-}
-
-//servers for choosing to enter ID number or index and calls either function "removeAnimalByIdMenu" or "removeAnimalByIndexMenu"
-void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
-{
-	int choice;
-	cout << "Do you want to select an animal by: \n" << endl;
-	cout << "1. Its ID\t 2. Its position on the list (index)\n" << endl;
-	cout << "Enter an option: ";
-	cin >> choice;
-	cout << endl;
-
-	while (choice != 1 and choice != 2) {
-		cout << "You have entered an incorrect option. Please enter a valid number: ";
-		cin >> choice;
-		cout << endl;
-	};
-
-	switch (choice)
-	{
-	case 1:removeAnimalByIdMenu(animals,animalCount,adoptedAnimals,adoptedAnimalCount); break;
-	case 2:removeAnimalByIndexMenu(animals,animalCount,adoptedAnimals, adoptedAnimalCount); break;
-	}
-
-	cout << "\nNote: once you remove an animal from the list of animals in the shelter, it will automatically be added to the list of adopted animals and its ID number will change \n" << endl;
-}
-
 //edits the information in field "name" in the structure "ANIMAL", according  to what one user has entered
-void editName(ANIMAL *animals,int index)
+void editName(ANIMAL* animals, int index)
 {
 	string newName;
 	cout << "Enter a new name: ";
@@ -278,8 +151,80 @@ void editDateOfArrival(ANIMAL* animals, int index)
 	animals[index].dateOfArrival.year = newYear;
 }
 
-//servers for choosing what to edit and calling one appropirate function
-void selectEdit(ANIMAL *animals,int index)
+
+/* --------------------------------------------------------------------- */
+
+
+
+
+/* --------------------- SECONDARY MENU FUNCTIONS ---------------------- */
+
+
+//serves for entering one animal's data
+void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)
+{
+	cout << "Fill in the information about the animal" << endl;
+	cout << endl;
+	cout << "Name: ";
+	cin >> newAnimal.name;
+	cout << "Species (with small letters): ";
+	cin >> newAnimal.species;
+	cin.ignore();
+	cout << "Age (in human years): ";
+	cin >> newAnimal.age;
+	cout << "Gender (male/female): ";
+	cin >> gender;
+	cout << "Condition (good/bad): ";
+	cin >> condition;
+	cout << "Date of arrival (D/M/Y): ";
+	cin >> newAnimal.dateOfArrival.day >> newAnimal.dateOfArrival.month >> newAnimal.dateOfArrival.year;
+}
+
+//serves for entering ID number of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL* adoptedAnimals, int& adoptedAnimalCount)
+{
+	int id, index;
+	cout << "Enter animal's ID: ";
+	cin >> id;
+
+	index = getIndexById(animals, animalCount, id);
+
+	if (animals[index].condition == condition::BAD)
+	{
+		cout << "\nAn animal that needs medical treatment can't be adopted!";
+		cout << endl;
+	}
+	else {
+		cout << "\nEnter date of adoption (D/M/Y): ";
+		cin >> animals[index].dateOfAdoption.day >> animals[index].dateOfAdoption.month >> animals[index].dateOfAdoption.year;
+
+		addAnimal(adoptedAnimals, adoptedAnimalCount, animals[index]);
+		removeAnimal(animals, animalCount, index);
+	}
+}
+
+//serves for entering index of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+void removeAnimalByIndexMenu(ANIMAL* animals, int& animalCount, ANIMAL* adoptedAnimals, int& adoptedAnimalCount)
+{
+	int index;
+	cout << "Enter animal's position (index): ";
+	cin >> index;
+
+	if (animals[index].condition == condition::BAD) {
+		cout << "\nAn animal that needs medical treatment can't be adopted!";
+		cout << endl;
+	}
+	else {
+		cout << "\nEnter date of adoption (D/M/Y): ";
+		cin >> animals[index].dateOfAdoption.day >> animals[index].dateOfAdoption.month >> animals[index].dateOfAdoption.year;
+
+		addAnimal(adoptedAnimals, adoptedAnimalCount, animals[index]);
+		removeAnimal(animals, animalCount, index);
+	}
+}
+
+//serves for choosing what to edit and calling one appropirate function
+void selectEdit(ANIMAL* animals, int index)
 {
 	int choice;
 	cout << "\n What do you want to edit? \n";
@@ -293,7 +238,7 @@ void selectEdit(ANIMAL *animals,int index)
 	cin >> choice;
 
 	while (choice < 1 or choice>6) {
-		cout<< "\n You have entered an incorrect option. Please enter a valid number: ";
+		cout << "\n You have entered an incorrect option. Please enter a valid number: ";
 		cin >> choice;
 		cout << endl;
 	}
@@ -302,8 +247,8 @@ void selectEdit(ANIMAL *animals,int index)
 
 	switch (choice)
 	{
-	case 1:editName(animals,index); break;
-	case 2:editSpecies(animals,index); break;
+	case 1:editName(animals, index); break;
+	case 2:editSpecies(animals, index); break;
 	case 3:editAge(animals, index); break;
 	case 4:editGender(animals, index); break;
 	case 5:editCondition(animals, index); break;
@@ -312,14 +257,14 @@ void selectEdit(ANIMAL *animals,int index)
 }
 
 //serves for entering the animal's ID number and making the appropriate edit
-void editAnimalByIdMenu(ANIMAL* animals,int animalCount)
+void editAnimalByIdMenu(ANIMAL* animals, int animalCount)
 {
 	int id, index;
 	cout << "Enter animal's ID: ";
 	cin >> id;
 
 	index = getIndexById(animals, animalCount, id);
-	selectEdit(animals,index);
+	selectEdit(animals, index);
 }
 
 //serves for entering the animal's index and making the appropriate edit
@@ -328,7 +273,169 @@ void editAnimalByIndexMenu(ANIMAL* animals)
 	int index;
 	cout << "Enter animal's position (index): ";
 	cin >> index;
-	selectEdit(animals,index);
+	selectEdit(animals, index);
+}
+
+//displays an animal's information
+void showAnimal(ANIMAL* animals, int i, string gender, string condition)
+{
+	cout << "Name: " << animals[i].name << endl;
+	cout << "ID: " << animals[i].id << endl;
+	cout << "Species: " << animals[i].species << endl;
+	cout << "Age (in human years): " << animals[i].age << endl;
+	cout << "Gender: " << gender << endl;
+	cout << "Condition: " << condition << endl;
+	cout << "Date of arrival: " << animals[i].dateOfArrival.day << "/" << animals[i].dateOfArrival.month << "/" << animals[i].dateOfArrival.year << endl;
+}
+
+// displays an animal's information (including its date of adoption)
+void showAdoptedAnimal(ANIMAL* adoptedAnimals, int i, string gender, string condition)
+{
+	cout << "Name: " << adoptedAnimals[i].name << endl;
+	cout << "ID: " << adoptedAnimals[i].id << endl;
+	cout << "Species: " << adoptedAnimals[i].species << endl;
+	cout << "Age (in human years): " << adoptedAnimals[i].age << endl;
+	cout << "Gender: " << gender << endl;
+	cout << "Condition: " << condition << endl;
+	cout << "Date of arrival: " << adoptedAnimals[i].dateOfArrival.day << "/" << adoptedAnimals[i].dateOfArrival.month << "/" << adoptedAnimals[i].dateOfArrival.year << endl;
+	cout << "Date of adoption: " << adoptedAnimals[i].dateOfAdoption.day << "/" << adoptedAnimals[i].dateOfAdoption.month << "/" << adoptedAnimals[i].dateOfAdoption.year << endl;
+}
+
+//serves for choosing one of the two arrays
+int selectArray() {
+	int choice;
+
+	cout << "Do you want to browse through: \n";
+	cout << "1. Animals in the shelter \t 2. Adopted animals\n";
+	cout << "\nEnter an option: ";
+	cin >> choice;
+
+	while (choice != 1 and choice != 2) {
+		cout << "You have entered an incorrect option. Please enter a valid number : ";
+		cin >> choice;
+		cout << endl;
+	}
+	return choice;
+}
+
+//displays the animal which corresponds to the entered by the user ID number
+void showById(ANIMAL* animals, int animalCount, int IdUser, int selected_array)
+{
+	string gender, condition;
+
+	for (int i = 0; i < animalCount; i++)
+	{
+		gender = genderToString(animals, i);
+		condition = conditionToString(animals, i);
+		if (animals[i].id == IdUser)
+		{
+			if (selected_array == 1)
+				showAnimal(animals, i, gender, condition);
+			else
+				showAdoptedAnimal(animals, i, gender, condition);
+		}
+	}
+	cout << endl;
+}
+
+//displays the animals that have value in the field "species", which equals to what the user has entered
+void showBySpecies(ANIMAL* animals, int animalCount, string speciesUser, int selected_array)
+{
+	string gender, condition;
+
+	for (int i = 0; i < animalCount; i++)
+	{
+		gender = genderToString(animals, i);
+		condition = conditionToString(animals, i);
+		if (animals[i].species == speciesUser)
+		{
+			if (selected_array == 1)
+				showAnimal(animals, i, gender, condition);
+			else
+				showAdoptedAnimal(animals, i, gender, condition);
+			cout << endl;
+		}
+	}
+	cout << endl;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+
+
+
+/* ----------------------- MAIN MENU FUNCTIONS ------------------------- */
+
+
+//serves for entering an animal's data and adding it to the array "animals"
+void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
+{
+	if (animalCount < maxSize)
+	{
+		string gender, condition;
+
+		ANIMAL newAnimal;
+
+		fillInAnimal(newAnimal, gender, condition);
+
+		addAnimal(animals, animalCount, newAnimal);
+
+		genderToEnum(animals, gender, (animalCount - 1));
+		conditionToEnum(animals, condition, (animalCount - 1));
+	}
+	else
+		cout << "There's not enough space in the shelter!" << endl;
+}
+
+//serves for entering the animal's data and interesting it to a specific position in the array
+void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
+{
+	if (animalCount < maxSize)
+	{
+		int index;
+		string gender, condition;
+
+		ANIMAL newAnimal;
+
+		fillInAnimal(newAnimal, gender, condition);
+
+		cout << endl;
+		cout << "Enter the position (index) where you want to place the animal: ";
+		cin >> index;
+
+		insertAnimal(animals, animalCount, newAnimal, index);
+
+		genderToEnum(animals, gender, index);
+		conditionToEnum(animals, condition, index);
+	}
+	else
+		cout << "There's not enough space in the shelter!" << endl;
+}
+
+//serves for choosing to enter ID number or index and calls either function "removeAnimalByIdMenu" or "removeAnimalByIndexMenu"
+void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
+{
+	int choice;
+	cout << "Do you want to select an animal by: \n" << endl;
+	cout << "1. Its ID\t 2. Its position on the list (index)\n" << endl;
+	cout << "Enter an option: ";
+	cin >> choice;
+	cout << endl;
+
+	while (choice != 1 and choice != 2) {
+		cout << "You have entered an incorrect option. Please enter a valid number: ";
+		cin >> choice;
+		cout << endl;
+	};
+
+	switch (choice)
+	{
+	case 1:removeAnimalByIdMenu(animals,animalCount,adoptedAnimals,adoptedAnimalCount); break;
+	case 2:removeAnimalByIndexMenu(animals,animalCount,adoptedAnimals, adoptedAnimalCount); break;
+	}
+
+	cout << "\nNote: once you remove an animal from the list of animals in the shelter, it will automatically be added to the list of adopted animals and its ID number will change \n" << endl;
 }
 
 //serves for choosing to enter the animal's ID number or index and calls either function "editAnimalByIdMenu" or "editAnimalByIndexMenu"
@@ -355,31 +462,6 @@ void editAnimalMenu(ANIMAL* animals,int animalCount)
 	case 1:editAnimalByIdMenu(animals,animalCount); break;
 	case 2:editAnimalByIndexMenu(animals); break;
 	}
-}
-
-//displays an animal's information
-void showAnimal(ANIMAL *animals,int i,string gender,string condition)
-{
-	cout << "Name: " << animals[i].name << endl;
-	cout << "ID: " << animals[i].id << endl;
-	cout << "Species: " << animals[i].species << endl;
-	cout << "Age (in human years): " << animals[i].age << endl;
-	cout << "Gender: " << gender << endl;
-	cout << "Condition: " << condition << endl;
-	cout << "Date of arrival: " << animals[i].dateOfArrival.day << "/" << animals[i].dateOfArrival.month << "/" << animals[i].dateOfArrival.year << endl;
-}
-
-// displays an animal's information (including its date of adoption)
-void showAdoptedAnimal(ANIMAL *adoptedAnimals, int i, string gender, string condition)
-{
-	cout << "Name: " << adoptedAnimals[i].name << endl;
-	cout << "ID: " << adoptedAnimals[i].id << endl;
-	cout << "Species: " << adoptedAnimals[i].species << endl;
-	cout << "Age (in human years): " << adoptedAnimals[i].age << endl;
-	cout << "Gender: " << gender << endl;
-	cout << "Condition: " << condition << endl;
-	cout << "Date of arrival: " << adoptedAnimals[i].dateOfArrival.day << "/" << adoptedAnimals[i].dateOfArrival.month << "/" << adoptedAnimals[i].dateOfArrival.year << endl;
-	cout << "Date of adoption: " << adoptedAnimals[i].dateOfAdoption.day << "/" << adoptedAnimals[i].dateOfAdoption.month << "/" << adoptedAnimals[i].dateOfAdoption.year << endl;
 }
 
 //displays all animals (elements) from the array "animals"
@@ -412,44 +494,6 @@ void showAdoptedAnimals(ANIMAL *adoptedAnimals, int adoptedAnimalCount)
 	cout << endl;
 }
 
-//serves for choosing one of the two arrays
-int selectArray() { 
-	int choice;
-
-	cout << "Do you want to browse through: \n";
-	cout << "1. Animals in the shelter \t 2. Adopted animals\n";
-	cout << "\nEnter an option: ";
-	cin >> choice;
-
-	while (choice != 1 and choice != 2) {
-		cout << "You have entered an incorrect option. Please enter a valid number : ";
-		cin >> choice;
-		cout << endl;
-	}
-	return choice;
-}
-
-//displays the animals that have value in the field "species", which equals to what the user has entered
-void showBySpecies(ANIMAL *animals, int animalCount,string speciesUser, int selected_array)
-{
-	string gender, condition;
-
-	for (int i = 0; i < animalCount; i++)
-	{
-		gender = genderToString(animals, i);
-		condition = conditionToString(animals, i);
-		if (animals[i].species == speciesUser)
-		{
-			if (selected_array==1)
-			showAnimal(animals, i, gender, condition);
-			else
-			showAdoptedAnimal(animals, i, gender, condition);
-			cout << endl;
-		}
-	}
-	cout << endl;
-}
-
 //serves for choosing array, entering species and displaying all animals from this species that are part of one selected array 
 void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedAnimalCount)
 {
@@ -463,26 +507,6 @@ void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals,
 	showBySpecies(animals,animalCount,speciesUser,selected_array);
 	else
 	showBySpecies(adoptedAnimals, adoptedAnimalCount, speciesUser,selected_array);
-}
-
-//displays the animal which corresponds to the entered by the user ID number
-void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)
-{
-	string gender, condition;
-
-	for (int i = 0; i < animalCount; i++)
-	{
-		gender = genderToString(animals, i);
-		condition = conditionToString(animals, i);
-		if (animals[i].id == IdUser)
-		{
-			if (selected_array==1)
-			   showAnimal(animals, i, gender, condition);
-			else
-				showAdoptedAnimal(animals, i, gender, condition);
-		}
-	}
-	cout << endl;
 }
 
 //serves for selecting the array, entering the animal's ID number and displaying the animal that corresponds to the entered ID
@@ -566,6 +590,12 @@ void mainMenu(ANIMAL *animals,int &animalCount, ANIMAL *adoptedAnimals, int &ado
 	}
 }
 
+
+/* --------------------------------------------------------------------- */
+
+
+
+
 int main()
 {
 	bool continueMenu = true;
@@ -573,6 +603,7 @@ int main()
 	int adoptedAnimalCount = 16;
 	int maxSize = 100;
 
+	//initializing 15 elements in the array "animals"
 	ANIMAL animals[100] = {
 	 {"Oscar", 1, "cat", 6,gender::MALE,condition::GOOD,{4,7,2016}},
 	 {"Coco",2,"cat",3,gender::FEMALE,condition::GOOD,{8,10,2017}},
@@ -591,7 +622,7 @@ int main()
 	 {"Swiper",15, "ferret", 0.5,gender::MALE,condition::GOOD,{2,4,2020}}
 	};
 
-
+	//initializing 16 elements in the array "adoptedAnimals"
 	ANIMAL adoptedAnimals[100] = {
 	 {"Bolt",1, "dog",13,gender::MALE,condition::GOOD,{8,5,2008}, {2, 6, 2010}},
 	 {"Perdita",2, "rabbit",0.5,gender::FEMALE,condition::GOOD,{12,8,2016}, {5, 10, 2017}},
@@ -611,8 +642,10 @@ int main()
 	 {"Pongo",16, "snake",0.5,gender::MALE,condition::GOOD,{8,5,2016}, {12, 6,2016}}
 	};
 	
+	//printing a welcoming message
 	cout << "Hello! Welcome to Animal Help Rescue Center's registry! \nHow may we assist you?"<<endl;
 	
+	//a do-while loop that repeats until the user chooses to exit the program 
 	do {
 		mainMenu(animals, animalCount, adoptedAnimals, adoptedAnimalCount, maxSize);
 	} while (continueMenu == true);

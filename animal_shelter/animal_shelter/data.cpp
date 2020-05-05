@@ -1,10 +1,11 @@
 #include "pch.h"
 #include <iostream>
 #include <string>
-#include "structures.h"
+#include "structuresAndEnums.h"
 using namespace std;
 
-string genderToString(ANIMAL* animals, int i)
+//converts the animal's gender from enum to string
+string genderToString(ANIMAL *animals, int i)
 {
 	string gender;
 	if (animals[i].gender == 0)
