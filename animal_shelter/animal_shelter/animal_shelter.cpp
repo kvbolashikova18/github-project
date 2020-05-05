@@ -1,5 +1,3 @@
-
-
 #include "pch.h"
 #include <iostream>
 #include <string>
@@ -7,7 +5,8 @@
 #include "data.h"
 using namespace std;
 
-string genderToString(ANIMAL *animals,int i)//converts the animal's gender from enum to string
+//converts the animal's gender from enum to string
+string genderToString(ANIMAL *animals,int i)
 {
 	string gender;
 	if (animals[i].gender == 0)
@@ -18,7 +17,8 @@ string genderToString(ANIMAL *animals,int i)//converts the animal's gender from 
 	return gender;
 }
 
-string conditionToString(ANIMAL *animals, int i) //converts the animals* condition from enum to string
+//converts the animal's condition from enum to string
+string conditionToString(ANIMAL *animals, int i) 
 {
 	string condition;
 	if (animals[i].condition == 0)
@@ -28,7 +28,8 @@ string conditionToString(ANIMAL *animals, int i) //converts the animals* conditi
 	return condition;
 }
 
-void genderToEnum(ANIMAL *animals, string gender,int i)//converts the animal's gender from string to enum
+//converts the animal's gender from string to enum
+void genderToEnum(ANIMAL *animals, string gender,int i)
 {
 	if (gender == "male")
 		animals[i].gender = gender::MALE;
@@ -36,7 +37,8 @@ void genderToEnum(ANIMAL *animals, string gender,int i)//converts the animal's g
 		animals[i].gender = gender::FEMALE;
 }
 
-void conditionToEnum(ANIMAL *animals, string condition, int i)//converts the animal's condition from string to enum
+//converts the animal's condition from string to enum
+void conditionToEnum(ANIMAL *animals, string condition, int i)
 {
 	if (condition == "good")
 		animals[i].condition = condition::GOOD;
@@ -44,7 +46,8 @@ void conditionToEnum(ANIMAL *animals, string condition, int i)//converts the ani
 		animals[i].condition = condition::BAD;
 }
 
-void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)//servers for entering one animal's data
+//servers for entering one animal's data
+void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)
 {
 	cout << "Fill in the information about the animal" << endl;
 	cout << endl;
@@ -63,14 +66,16 @@ void fillInAnimal(ANIMAL& newAnimal, string& gender, string& condition)//servers
 	cin >> newAnimal.dateOfArrival.day >> newAnimal.dateOfArrival.month >> newAnimal.dateOfArrival.year;
 }
 
-void addAnimal(ANIMAL *animals, int &animalCount, ANIMAL newAnimal)//adds an animal to the end of an array
+//adds an animal to the end of an array
+void addAnimal(ANIMAL *animals, int &animalCount, ANIMAL newAnimal)
 {
 	animals[animalCount] = newAnimal;
 	animals[animalCount].id = animalCount+1;
 	animalCount++;
 }
 
-void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers for entering an animal's data and adding it to the array "animals"
+//servers for entering an animal's data and adding it to the array "animals"
+void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
 {
 	if (animalCount < maxSize)
 	{
@@ -89,7 +94,8 @@ void addAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers for 
 		cout << "There's not enough space in the shelter!" << endl;
 }
 
-void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)//inserts animal to a specific position in an array
+//inserts animal to a specific position in an array
+void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)
 {
 	for (int i = animalCount; i > index; i--)
 	{
@@ -100,7 +106,8 @@ void insertAnimal(ANIMAL* animals, int& animalCount, ANIMAL newAnimal,int index)
 	animalCount++;
 }
 
-void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers for entering the animal's data and interesting it to a specific position in the array
+//servers for entering the animal's data and interesting it to a specific position in the array
+void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)
 {
 	if (animalCount < maxSize)
 	{
@@ -124,7 +131,8 @@ void insertAnimalMenu(ANIMAL* animals, int& animalCount, int maxSize)//servers f
 		cout << "There's not enough space in the shelter!" << endl;
 }
 
-int getIndexById(ANIMAL* animals, int animalCount,int idUser)//gets the index of the animal that corresponds to the entered by one user ID number
+//gets the index of the animal that corresponds to the entered by one user ID number
+int getIndexById(ANIMAL* animals, int animalCount,int idUser)
 {
 	int index;
 	for (int i = 0; i < animalCount; i++)
@@ -136,7 +144,8 @@ int getIndexById(ANIMAL* animals, int animalCount,int idUser)//gets the index of
 	return index;
 }
 
-void removeAnimal(ANIMAL* animals, int& animalCount,int index)//removes an animal from an array
+//removes an animal from an array
+void removeAnimal(ANIMAL* animals, int& animalCount,int index)
 {
 	for (int i = index; i < (animalCount - 1); i++)
 	{
@@ -145,7 +154,8 @@ void removeAnimal(ANIMAL* animals, int& animalCount,int index)//removes an anima
 	animalCount--;
 }
 
-void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)//servers for entering ID number of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+//servers for entering ID number of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
 {
 	int id,index;
 	cout << "Enter animal's ID: ";
@@ -167,7 +177,8 @@ void removeAnimalByIdMenu(ANIMAL* animals, int& animalCount, ANIMAL *adoptedAnim
 	}
 }
 
-void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedAnimals, int &adoptedAnimalCount)//servers for entering index of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+//servers for entering index of animal and the data of adoption and for  removing animal from  the "animals" array and adding it  to the "adoptedAnimals" array
+void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedAnimals, int &adoptedAnimalCount)
 {
 	int index;
 	cout << "Enter animal's position (index): ";
@@ -186,7 +197,8 @@ void removeAnimalByIndexMenu(ANIMAL *animals, int &animalCount, ANIMAL* adoptedA
 	}
 }
 
-void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)//servers for choosing to enter ID number or index and calls either function "removeAnimalByIdMenu" or "removeAnimalByIndexMenu"
+//servers for choosing to enter ID number or index and calls either function "removeAnimalByIdMenu" or "removeAnimalByIndexMenu"
+void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount)
 {
 	int choice;
 	cout << "Do you want to select an animal by: \n" << endl;
@@ -210,7 +222,8 @@ void removeAnimalMenu(ANIMAL *animals, int &animalCount, ANIMAL *adoptedAnimals,
 	cout << "\nNote: once you remove an animal from the list of animals in the shelter, it will automatically be added to the list of adopted animals and its ID number will change \n" << endl;
 }
 
-void editName(ANIMAL *animals,int index)//edits the information in field "name" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "name" in the structure "ANIMAL", according  to what one user has entered
+void editName(ANIMAL *animals,int index)
 {
 	string newName;
 	cout << "Enter a new name: ";
@@ -218,7 +231,8 @@ void editName(ANIMAL *animals,int index)//edits the information in field "name" 
 	animals[index].name = newName;
 }
 
-void editSpecies(ANIMAL* animals, int index)//edits the information in field "species" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "species" in the structure "ANIMAL", according  to what one user has entered
+void editSpecies(ANIMAL* animals, int index)
 {
 	string newSpecies;
 	cout << "Enter new species: ";
@@ -226,7 +240,8 @@ void editSpecies(ANIMAL* animals, int index)//edits the information in field "sp
 	animals[index].species = newSpecies;
 }
 
-void editAge(ANIMAL* animals, int index)//edits the information in field "age" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "age" in the structure "ANIMAL", according  to what one user has entered
+void editAge(ANIMAL* animals, int index)
 {
 	int newAge;
 	cout << "Enter new age: ";
@@ -234,7 +249,8 @@ void editAge(ANIMAL* animals, int index)//edits the information in field "age" i
 	animals[index].age = newAge;
 }
 
-void editGender(ANIMAL* animals, int index)//edits the information in field "gender" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "gender" in the structure "ANIMAL", according  to what one user has entered
+void editGender(ANIMAL* animals, int index)
 {
 	string newGender;
 	cout << "Enter new gender (male/female): ";
@@ -242,7 +258,8 @@ void editGender(ANIMAL* animals, int index)//edits the information in field "gen
 	genderToEnum(animals, newGender, index);
 }
 
-void editCondition(ANIMAL* animals, int index)//edits the information in field "condition" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "condition" in the structure "ANIMAL", according  to what one user has entered
+void editCondition(ANIMAL* animals, int index)
 {
 	string newCondition;
 	cout << "Enter new condition (good/bad): ";
@@ -250,7 +267,8 @@ void editCondition(ANIMAL* animals, int index)//edits the information in field "
 	conditionToEnum(animals, newCondition, index);
 }
 
-void editDateOfArrival(ANIMAL* animals, int index)//edits the information in field "dateOfArrival" in the structure "ANIMAL", according  to what one user has entered
+//edits the information in field "dateOfArrival" in the structure "ANIMAL", according  to what one user has entered
+void editDateOfArrival(ANIMAL* animals, int index)
 {
 	int newDay, newMonth, newYear;
 	cout << "Enter new date of arrival (D/M/Y): ";
@@ -260,7 +278,8 @@ void editDateOfArrival(ANIMAL* animals, int index)//edits the information in fie
 	animals[index].dateOfArrival.year = newYear;
 }
 
-void selectEdit(ANIMAL *animals,int index)//servers for choosing what to edit and calling one appropirate function
+//servers for choosing what to edit and calling one appropirate function
+void selectEdit(ANIMAL *animals,int index)
 {
 	int choice;
 	cout << "\n What do you want to edit? \n";
@@ -292,7 +311,8 @@ void selectEdit(ANIMAL *animals,int index)//servers for choosing what to edit an
 	}
 }
 
-void editAnimalByIdMenu(ANIMAL* animals,int animalCount)//serves for entering the animal's ID number and making the appropriate edit
+//serves for entering the animal's ID number and making the appropriate edit
+void editAnimalByIdMenu(ANIMAL* animals,int animalCount)
 {
 	int id, index;
 	cout << "Enter animal's ID: ";
@@ -302,7 +322,8 @@ void editAnimalByIdMenu(ANIMAL* animals,int animalCount)//serves for entering th
 	selectEdit(animals,index);
 }
 
-void editAnimalByIndexMenu(ANIMAL* animals)//serves for entering the animal's index and making the appropriate edit
+//serves for entering the animal's index and making the appropriate edit
+void editAnimalByIndexMenu(ANIMAL* animals)
 {
 	int index;
 	cout << "Enter animal's position (index): ";
@@ -310,7 +331,8 @@ void editAnimalByIndexMenu(ANIMAL* animals)//serves for entering the animal's in
 	selectEdit(animals,index);
 }
 
-void editAnimalMenu(ANIMAL* animals,int animalCount)//serves for choosing to enter the animal's ID number or index and calls either function "editAnimalByIdMenu" or "editAnimalByIndexMenu"
+//serves for choosing to enter the animal's ID number or index and calls either function "editAnimalByIdMenu" or "editAnimalByIndexMenu"
+void editAnimalMenu(ANIMAL* animals,int animalCount)
 {
 	int choice;
 	cout << "Do you want to select an animal by: \n";
@@ -335,7 +357,8 @@ void editAnimalMenu(ANIMAL* animals,int animalCount)//serves for choosing to ent
 	}
 }
 
-void showAnimal(ANIMAL *animals,int i,string gender,string condition)//displays an animal's information
+//displays an animal's information
+void showAnimal(ANIMAL *animals,int i,string gender,string condition)
 {
 	cout << "Name: " << animals[i].name << endl;
 	cout << "ID: " << animals[i].id << endl;
@@ -346,7 +369,8 @@ void showAnimal(ANIMAL *animals,int i,string gender,string condition)//displays 
 	cout << "Date of arrival: " << animals[i].dateOfArrival.day << "/" << animals[i].dateOfArrival.month << "/" << animals[i].dateOfArrival.year << endl;
 }
 
-void showAdoptedAnimal(ANIMAL *adoptedAnimals, int i, string gender, string condition)// displays an animal's information (including its date of adoption)
+// displays an animal's information (including its date of adoption)
+void showAdoptedAnimal(ANIMAL *adoptedAnimals, int i, string gender, string condition)
 {
 	cout << "Name: " << adoptedAnimals[i].name << endl;
 	cout << "ID: " << adoptedAnimals[i].id << endl;
@@ -358,7 +382,8 @@ void showAdoptedAnimal(ANIMAL *adoptedAnimals, int i, string gender, string cond
 	cout << "Date of adoption: " << adoptedAnimals[i].dateOfAdoption.day << "/" << adoptedAnimals[i].dateOfAdoption.month << "/" << adoptedAnimals[i].dateOfAdoption.year << endl;
 }
 
-void showAnimalsInShelter(ANIMAL *animals,int animalCount)//displays all animals (elements) from the array "animals"
+//displays all animals (elements) from the array "animals"
+void showAnimalsInShelter(ANIMAL *animals,int animalCount)
 {
 	string gender, condition;
 
@@ -372,7 +397,8 @@ void showAnimalsInShelter(ANIMAL *animals,int animalCount)//displays all animals
 	cout << endl;
 }
 
-void showAdoptedAnimals(ANIMAL *adoptedAnimals, int adoptedAnimalCount)//displays all animals (elements) from the array "adoptedAnimals"
+//displays all animals (elements) from the array "adoptedAnimals"
+void showAdoptedAnimals(ANIMAL *adoptedAnimals, int adoptedAnimalCount)
 {
 	string gender, condition;
 
@@ -386,7 +412,8 @@ void showAdoptedAnimals(ANIMAL *adoptedAnimals, int adoptedAnimalCount)//display
 	cout << endl;
 }
 
-int selectArray() { //serves for choosing one of the two arrays
+//serves for choosing one of the two arrays
+int selectArray() { 
 	int choice;
 
 	cout << "Do you want to browse through: \n";
@@ -402,7 +429,8 @@ int selectArray() { //serves for choosing one of the two arrays
 	return choice;
 }
 
-void showBySpecies(ANIMAL *animals, int animalCount,string speciesUser, int selected_array)//displays the animals that have value in the field "species", which equals to what the user has entered
+//displays the animals that have value in the field "species", which equals to what the user has entered
+void showBySpecies(ANIMAL *animals, int animalCount,string speciesUser, int selected_array)
 {
 	string gender, condition;
 
@@ -422,7 +450,8 @@ void showBySpecies(ANIMAL *animals, int animalCount,string speciesUser, int sele
 	cout << endl;
 }
 
-void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedAnimalCount)//serves for choosing array, entering species and displaying all animals from this species that are part of one selected array 
+//serves for choosing array, entering species and displaying all animals from this species that are part of one selected array 
+void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedAnimalCount)
 {
 	string speciesUser;
 	int selected_array = selectArray();
@@ -436,7 +465,8 @@ void showBySpeciesMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals,
 	showBySpecies(adoptedAnimals, adoptedAnimalCount, speciesUser,selected_array);
 }
 
-void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)//displays the animal which corresponds to the entered by the user ID number
+//displays the animal which corresponds to the entered by the user ID number
+void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)
 {
 	string gender, condition;
 
@@ -455,7 +485,8 @@ void showById(ANIMAL *animals, int animalCount, int IdUser, int selected_array)/
 	cout << endl;
 }
 
-void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedanimalCount)//serves for selecting the array, entering the animal's ID number and displaying the animal that corresponds to the entered ID
+//serves for selecting the array, entering the animal's ID number and displaying the animal that corresponds to the entered ID
+void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int adoptedanimalCount)
 {
 	int IdUser;
 	int selected_array = selectArray();
@@ -468,7 +499,8 @@ void showByIdMenu(ANIMAL *animals, int animalCount, ANIMAL *adoptedAnimals, int 
 		showById(adoptedAnimals, adoptedanimalCount, IdUser,selected_array);
 }
 
-void showIllAnimals(ANIMAL *animals, int animalCount)//displays the animals which have a field "condition" that equals to "BAD"
+//displays the animals which have a field "condition" that equals to "BAD"
+void showIllAnimals(ANIMAL *animals, int animalCount)
 {
 	string gender, condition;
 
@@ -485,7 +517,8 @@ void showIllAnimals(ANIMAL *animals, int animalCount)//displays the animals whic
 	cout << endl;
 }
 
-void mainMenu(ANIMAL *animals,int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount, int maxSize)//serves for choosing one of the main functions
+//serves for choosing one of the main functions
+void mainMenu(ANIMAL *animals,int &animalCount, ANIMAL *adoptedAnimals, int &adoptedAnimalCount, int maxSize)
 {
 	int choice;
 	cout << endl;
